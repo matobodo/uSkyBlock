@@ -140,7 +140,7 @@ public class BlockLevelConfig {
                 Objects.equals(baseBlock, that.baseBlock) &&
                 additionalBlocks.containsAll(that.additionalBlocks) &&
                 that.additionalBlocks.containsAll(additionalBlocks) &&
-                displayName.equals(that.displayName)
+                Objects.equals(displayName, that.displayName)
                 ;
     }
 
