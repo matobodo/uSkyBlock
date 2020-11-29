@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class LevelConfigYmlReader {
     private static final Pattern BLOCK_KEY_PATTERN = Pattern.compile("(?<type>[A-Z0-9_]+)(/(?<sub>[0-9\\-]+))?");
-    
+
     public BlockLevelConfigMap readLevelConfig(FileConfiguration config) {
         double defaultScore = config.getDouble("general.default", 10d);
         int defaultLimit = config.getInt("general.limit", Integer.MAX_VALUE);
@@ -63,6 +63,10 @@ public class LevelConfigYmlReader {
         List<String> additionBlocks = section.getStringList("additionalBlocks");
         if (!additionBlocks.isEmpty()) {
             builder.additionalBlocks(additionBlocks.stream().map(s -> getBlockMatch(s)).collect(Collectors.toList()).toArray(new BlockMatch[0]));
+        }
+        String displayName = section.getString("displayName");
+        if (displayName != null) {
+            builder.displayName(displayName);
         }
         return builder.build();
     }

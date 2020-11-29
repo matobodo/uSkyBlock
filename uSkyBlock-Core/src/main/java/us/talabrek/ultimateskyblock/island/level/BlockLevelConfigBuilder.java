@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class BlockLevelConfigBuilder {
     private BlockMatch baseBlock;
     private Set<BlockMatch> additionalBlocks = new HashSet<>();
+    private String displayName = null;
     private double scorePerBlock = 10;
     private int limit = -1;
     private int diminishingReturns = -1;
@@ -38,6 +39,11 @@ public class BlockLevelConfigBuilder {
         return this;
     }
 
+    public BlockLevelConfigBuilder displayName(String displayName) {
+        this.displayName = displayName;
+        return this;
+    }
+
     public BlockLevelConfigBuilder scorePerBlock(double scorePerBlock) {
         this.scorePerBlock = scorePerBlock;
         return this;
@@ -62,6 +68,7 @@ public class BlockLevelConfigBuilder {
         return new BlockLevelConfigBuilder()
                 .base(baseBlock)
                 .additionalBlocks(additionalBlocks.toArray(new BlockMatch[0]))
+                .displayName(displayName)
                 .scorePerBlock(scorePerBlock)
                 .limit(limit)
                 .diminishingReturns(diminishingReturns)
@@ -79,6 +86,6 @@ public class BlockLevelConfigBuilder {
             }
         });
         additionalBlocks = additionalBlocks.stream().filter(f -> f.getType() != baseBlock.getType()).collect(Collectors.toSet());
-        return new BlockLevelConfig(baseBlock, additionalBlocks, scorePerBlock, limit, diminishingReturns, negativeReturns);
+        return new BlockLevelConfig(baseBlock, additionalBlocks, displayName, scorePerBlock, limit, diminishingReturns, negativeReturns);
     }
 }

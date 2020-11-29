@@ -11,6 +11,11 @@ public class BlockLevelConfig {
     private final Set<BlockMatch> additionalBlocks;
 
     /**
+     * Text displayed to player instead of baseBlock name
+     */
+    private final String displayName;
+
+    /**
      * The base-score you will get per block of this type.
      */
     private final double scorePerBlock;
@@ -31,9 +36,10 @@ public class BlockLevelConfig {
      */
     private final int negativeReturns;
 
-    public BlockLevelConfig(BlockMatch baseBlock, Set<BlockMatch> additionalBlocks, double scorePerBlock, int limit, int diminishingReturns, int negativeReturns) {
+    public BlockLevelConfig(BlockMatch baseBlock, Set<BlockMatch> additionalBlocks, String displayName, double scorePerBlock, int limit, int diminishingReturns, int negativeReturns) {
         this.baseBlock = baseBlock;
         this.additionalBlocks = additionalBlocks;
+        this.displayName = displayName;
         this.scorePerBlock = scorePerBlock;
         this.limit = limit;
         this.diminishingReturns = diminishingReturns;
@@ -89,6 +95,10 @@ public class BlockLevelConfig {
         return additionalBlocks;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
     public double getScorePerBlock() {
         return scorePerBlock;
     }
@@ -110,6 +120,7 @@ public class BlockLevelConfig {
         return "BlockLevelConfig{" +
                 "baseBlock=" + baseBlock +
                 ", additionalBlocks=" + additionalBlocks +
+                ", displayName=" + displayName +
                 ", scorePerBlock=" + scorePerBlock +
                 ", limit=" + limit +
                 ", diminishingReturns=" + diminishingReturns +
@@ -128,12 +139,13 @@ public class BlockLevelConfig {
                 negativeReturns == that.negativeReturns &&
                 Objects.equals(baseBlock, that.baseBlock) &&
                 additionalBlocks.containsAll(that.additionalBlocks) &&
-                that.additionalBlocks.containsAll(additionalBlocks)
+                that.additionalBlocks.containsAll(additionalBlocks) &&
+                displayName.equals(that.displayName)
                 ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(baseBlock, additionalBlocks, scorePerBlock, limit, diminishingReturns, negativeReturns);
+        return Objects.hash(baseBlock, additionalBlocks, displayName, scorePerBlock, limit, diminishingReturns, negativeReturns);
     }
 }
